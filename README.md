@@ -12,7 +12,7 @@ Napisana praca jest najpierw generowana w formacie `latex`, ponieważ `pandoc` n
 
 - `make`
 - `latexmk`
-- `pandoc` (tested with version 3.6.4)
+- `pandoc` (tested versions: 3.6.4 and 2.17.1.1)
 - `pandoc-crossref`
 
 ## Ubuntu (`amd64`)
@@ -34,21 +34,27 @@ brew install make mactex pandoc pandoc-crossref
 
 # Sposób użycia
 
-W katalogu `src/` znajdują się pliki źródłowe dokumentu. Są one załączane do pliku wynikowego w kolejności alfabetycznej, stąd sugestia, by stosować nazwy `XX-description.md`, gdzie `XX` to wartość liczbowa, zaczynając od `00`.
+W katalogach [md/beng](md/beng) [md](md/meng) znajdują się pliki źródłowe dokumentów. Są one załączane do pliku wynikowego w kolejności alfabetycznej, stąd sugestia, by stosować nazwy `XX-description.md`, gdzie `XX` to wartość liczbowa, zaczynając od `00`.
 
 Plik `00-headers.md` zawiera niezbędne nagłówki w formacie YAML (tzw. YAML front matter), gdzie można dostosować informacje o pracy: tytuł, dane autora, promotora, bibliografię. Dobrą praktyką jest nie wpisywać treści pracy w tym pliku, jednak nie jest to błędem.
 
-Plik `Makefile` zawiera w sobie polecenia tworzące końcowy plik PDF. Jako źródło brane są wszystkie pliki z rozszerzeniem `.md` znajdujące się w katalogu `src/`.
+Plik [Makefile](Makefile) zawiera w sobie polecenia tworzące końcowy plik PDF. Jako źródło brane są wszystkie pliki z rozszerzeniem `.md` znajdujące się w katalogu `md/${TYPE}`.
+
+Skrypt [build.sh](build.sh) zawiera przykładowe argumenty dla `pandoc` i `latexmk`, które są używane w poleceniu `make pdf`.
 
 ## Dostosowanie ustawień
 
-Można zmienić domyślne zachowanie polecenia `make` ustawiając zmienne środowiskowe:
+Można zmienić domyślne zachowanie polecenia `make` dostosowując kolejne argumenty skryptu [build.sh](build.sh)
 
-- `OUTPUT_FILE_SUFFIX` - domyślnie `latest`, suffix dołączany do bazowej nazwy `praca-dyplomowa-{suffix}.pdf`
-- `OUTPUT_PATH` - domyślnie `out`, ścieżka, gdzie zostanie zapisany plik PDF
+- `TYPE` - typ szablonu latex, znajdujący się w katalogu `src/TYPE`
+- `INPUT_DIR` - katalog z plikami źródłowymi
+- `OUTPUT_FILE_SUFFIX` - przyrostek pliku wynikowego, domyślnie `-latest`
+- `OUTPUT_DIR_SUFFIX` - przyrostek katalogu wynikowego, domyślnie `INPUT_DIR`
 
-## Komenda do wykonania
+## Użycie 
+
+Przykładowa komenda do wykonania, ustalajaca szablon [template.tex](src/thesis/template.latex) w stylu [thesis](src/thesis) dla plikow zrodlowych z katalogu [md/meng](md/meng), tworząca [thesis-latest.pdf](pdf/meng/thesis-latest.pdf) w katalogu [pdf/meng](pdf/meng):
 
 ```bash
-OUTPUT_FILE_SUFFIX=latest OUTPUT_PATH=out make pdf
+./build.sh thesis md/meng
 ```

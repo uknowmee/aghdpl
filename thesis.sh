@@ -8,7 +8,9 @@ OUTPUT_DIR="pdf/${OUTPUT_DIR_SUFFIX}"
 
 mkdir -p "$OUTPUT_DIR"
 
-echo "===> Building: type: $TYPE, input_dir: $INPUT_DIR, output_dir: $OUTPUT_DIR, output_file_suffix: $OUTPUT_FILE_SUFFIX"
+echo "===> ARGS - 1: $INPUT_DIR, 2: $OUTPUT_FILE_SUFFIX, 3: $OUTPUT_DIR_SUFFIX"
+echo "===> Defaults - 2: latest, 3: ${INPUT_DIR##*/}"
+echo "===> Makefile ENV - type: $TYPE, input_dir: $INPUT_DIR, output_dir: $OUTPUT_DIR, output_file_suffix: $OUTPUT_FILE_SUFFIX"
 echo "===> Running: make pdf"
 echo ""
 echo ""

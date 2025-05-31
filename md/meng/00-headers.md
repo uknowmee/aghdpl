@@ -1,7 +1,7 @@
 ---
 lang: pl
 bibliography:
-- src/bibliografia.bib
+- bibliografia.bib
 - from-doi.bib
 author: Piotr Sokołowski
 shortauthor: P. Sokołowski
@@ -11,7 +11,7 @@ shorttitlePL: Praca dyplomowa w Markdown
 shorttitleEN: Thesis in Markdown
 supervisor: dr inż. Sebastian Ernst
 degreeprogramme: Informatyka i Systemy Inteligentne
-date: 2024
+date: 2025
 department: Katedra Informatyki Stosowanej
 faculty: Wydział Elektrotechniki, Automatyki, Informatyki i Inżynierii Biomedycznej
 acknowledgements: |

@@ -1,3 +1,7 @@
+# MD to PDF with LaTeX templates
+
+Repozystorium zawiera szablony do tworzenia dokumentów w formacie PDF z wykorzystaniem `pandoc` i `latexmk`. W szczególności zawiera szablony dla prac dyplomowych i naukowych.
+
 # AGHDPL
 
 - Autor: [Piotr Sokołowski](https://github.com/sokoloowski).

@@ -9,7 +9,7 @@ titlePL: Przygotowanie długiej i fascynującej pracy dyplomowej w Markdown
 titleEN: Preparation of a long and fascinating thesis in Markdown
 shorttitlePL: Praca dyplomowa w Markdown
 shorttitleEN: Thesis in Markdown
-thesistype: Praca dyplomowa
+thesistype: Projekt dyplomowy
 supervisor: dr inż. Sebastian Ernst
 degreeprogramme: Informatyka i Systemy Inteligentne
 date: 2025

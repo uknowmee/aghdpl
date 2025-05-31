@@ -12,9 +12,9 @@ ${PDF}: $(SRC) src/${TYPE}/template.latex src/diagram-generator.lua src/doi2cite
 	mv src/${TYPE}/output.pdf ${PDF}
 	cp ${PDF} ${OUTPUT_DIR}/${TYPE}.pdf
 
-	cd src/${TYPE} && latexmk -C
-	rm src/${TYPE}/output.*
-	rm src/${TYPE}/*.bib
-	rm src/${TYPE}/*.pdf
+	-@cd src/${TYPE} && latexmk -C || echo "Warning: latexmk clean failed"
+	-@rm src/${TYPE}/output.* || echo "Warning: failed to remove output.*"
+	-@rm src/${TYPE}/*.bib || echo "Warning: failed to remove .bib files"
+	-@rm src/${TYPE}/*.pdf || echo "Warning: failed to remove .pdf files"
 
 pdf: ${PDF}

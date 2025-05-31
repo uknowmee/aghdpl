@@ -1,12 +1,16 @@
-# Klasa `aghdpl`
+# AGHDPL
 
-Repozytorium zawiera opracowanie szablonu `aghdpl`, którego autorami są [prof. dr hab. Marcin Szpyrka](mailto:mszpyrka@agh.edu.pl), prof. dr hab. inż. Grzegorz J. Nalepa i dr inż. Paweł Kłeczek. Oryginalny szablon dostępny jest na [stronie prof. Szpyrki](http://home.agh.edu.pl/~mszpyrka/doku.php?id=lectures:latex:aghdpl).
-
-Opracowanie to powstało za namową mojego promotora, [dr inż. Sebastiana Ernsta](mailto:ernst@agh.edu.pl), któremu dziękuję za polecenie filtra `pandoc-crossref` oraz pomoc ze stworzeniem `Makefile`.
+- Autor: [Piotr Sokołowski](https://github.com/sokoloowski).
+- [Oryginalny szablon](http://home.agh.edu.pl/~mszpyrka/doku.php?id=lectures:latex:aghdpl) autorstwa: [prof. dr hab. Marcin Szpyrka](mailto:mszpyrka@agh.edu.pl), prof. dr hab. inż. Grzegorz J. Nalepa i dr inż. Paweł Kłeczek.
+- Pomysłodawca [dr inż. Sebastiana Ernsta](mailto:ernst@agh.edu.pl)
 
 Niniejsze opracowanie ma na celu umożliwienie napisania pracy dyplomowej w [Markdown](https://daringfireball.net/projects/markdown/) i wyeksportowanie jej do formatu PDF za pośrednictwem [`pandoc`](https://pandoc.org) oraz [`latexmk`](https://mg.readthedocs.io/latexmk.html).
 
 Napisana praca jest najpierw generowana w formacie `latex`, ponieważ `pandoc` nie obsługuje użytego w szablonie `biblatex`. Następnie tworzony jest dokument PDF, domyślnie `out/praca-dyplomowa-latest.pdf`.
+
+# PPRAI
+
+- Autor: [Piotr Sokołowski](https://github.com/sokoloowski).
 
 # Wymagania
 
@@ -34,7 +38,7 @@ brew install make mactex pandoc pandoc-crossref
 
 # Sposób użycia
 
-W katalogach [md/beng](md/beng) [md](md/meng) znajdują się pliki źródłowe dokumentów. Są one załączane do pliku wynikowego w kolejności alfabetycznej, stąd sugestia, by stosować nazwy `XX-description.md`, gdzie `XX` to wartość liczbowa, zaczynając od `00`.
+W katalogach [md/beng](md/beng), [md/eng](md/meng), [md/pprai](md/pprai) znajdują się pliki źródłowe dokumentów. Są one załączane do pliku wynikowego w kolejności alfabetycznej, stąd sugestia, by stosować nazwy `XX-description.md`, gdzie `XX` to wartość liczbowa, zaczynając od `00`.
 
 Plik `00-headers.md` zawiera niezbędne nagłówki w formacie YAML (tzw. YAML front matter), gdzie można dostosować informacje o pracy: tytuł, dane autora, promotora, bibliografię. Dobrą praktyką jest nie wpisywać treści pracy w tym pliku, jednak nie jest to błędem.
 

@@ -61,8 +61,14 @@ Można zmienić domyślne zachowanie polecenia `make` dostosowując kolejne argu
 
 ## Użycie 
 
-Przykładowa komenda do wykonania, ustalajaca szablon [template.tex](src/thesis/template.latex) w stylu [thesis](src/thesis) dla plikow zrodlowych z katalogu [md/meng](md/meng), tworząca [thesis-latest.pdf](pdf/meng/thesis-latest.pdf) w katalogu [pdf/meng](pdf/meng):
+Przykładowa komenda do wykonania, ustalajaca szablon [template.tex](src/aghdpl/template.latex) w stylu [aghdpl](src/aghdpl) dla plikow zrodlowych z katalogu [md/meng](md/meng), tworząca [aghdpl-latest.pdf](pdf/meng/example-aghdpl.pdf) w katalogu [pdf/meng](pdf/meng):
 
 ```bash
-./build.sh thesis md/meng
+./build.sh aghdpl md/meng
+```
+
+## Jeżeli, chcesz użyć kilku szablonów dla jednego dokumentu, sprawdź [md/example-conference](md/example-conference).
+
+```bash
+./build.sh few md/example-conference
 ```

@@ -1,10 +1,17 @@
-SRC := $(wildcard $(INPUT_DIR)/*.md)
+ifeq ($(FEW), true)
+	SRC1 := $(wildcard $(INPUT_DIR)/*.md)
+	SRC2 := $(wildcard $(INPUT_DIR)/../*.md)
+	SRC := $(SRC1) $(SRC2)
+else
+	SRC := $(wildcard $(INPUT_DIR)/*.md)
+endif
+
 PDF := ${OUTPUT_DIR}/${TYPE}-${OUTPUT_FILE_SUFFIX}.pdf
 
-ifeq ($(TYPE), thesis)
-PANDOC_FLAGS := --top-level-division=chapter --template=src/${TYPE}/template.latex
+ifeq ($(TYPE), aghdpl)
+	PANDOC_FLAGS := --top-level-division=chapter --template=src/${TYPE}/template.latex
 else
-PANDOC_FLAGS :=
+	PANDOC_FLAGS :=
 endif
 
 ${PDF}: $(SRC)
@@ -18,11 +25,17 @@ ${PDF}: $(SRC)
 		--biblatex \
 		$(PANDOC_FLAGS)
 	
-	mv from-doi.bib src/${TYPE}/
-	cp ${INPUT_DIR}/*.bib src/${TYPE}/
+	-@mv from-doi.bib src/${TYPE}/ || echo "Warning: from-doi.bib not found or failed to move"
 	
 	mkdir -p src/${TYPE}/assets
-	-@cp -r ${INPUT_DIR}/assets/* src/${TYPE}/assets/ || echo "Warning: failed to copy assets"
+	@if [ "$(FEW)" = "true" ]; then \
+		cp ${INPUT_DIR}/../bibliografia.bib src/${TYPE}/ || (touch src/${TYPE}/bibliografia.bib && echo "Warning: failed to copy .bib files, created empty bibliografia.bib"); \
+		cp -r ${INPUT_DIR}/assets/* src/${TYPE}/assets/ || echo "Warning: failed to copy assets"; \
+		cp -r ${INPUT_DIR}/../assets/* src/${TYPE}/assets/ || echo "Warning: failed to copy assets"; \
+	else \
+		cp ${INPUT_DIR}/*.bib src/${TYPE}/ || (touch src/${TYPE}/bibliografia.bib && echo "Warning: failed to copy .bib files, created empty bibliografia.bib"); \
+		cp -r ${INPUT_DIR}/assets/* src/${TYPE}/assets/ || echo "Warning: failed to copy assets"; \
+	fi
 	
 	cd src/${TYPE} && latexmk -pdf output.tex
 

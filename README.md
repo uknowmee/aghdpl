@@ -67,7 +67,12 @@ Przykładowa komenda do wykonania, ustalajaca szablon [template.tex](src/aghdpl/
 ./build.sh aghdpl md/meng
 ```
 
-## Jeżeli, chcesz użyć kilku szablonów dla jednego dokumentu, sprawdź [md/example-conference](md/example-conference).
+Nowsza wersja szablonu:
+```bash
+./build.sh aghdplv2 md/meng
+```
+
+Jeżeli, chcesz użyć kilku szablonów dla jednego dokumentu, sprawdź [md/example-conference](md/example-conference).
 
 ```bash
 ./build.sh few md/example-conference

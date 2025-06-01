@@ -8,7 +8,7 @@ endif
 
 PDF := ${OUTPUT_DIR}/${TYPE}-${OUTPUT_FILE_SUFFIX}.pdf
 
-ifeq ($(TYPE), aghdpl)
+ifeq ($(findstring aghdpl,$(TYPE)),aghdpl)
 	PANDOC_FLAGS := --top-level-division=chapter --template=src/${TYPE}/template.latex
 else
 	PANDOC_FLAGS :=
@@ -25,7 +25,7 @@ ${PDF}: $(SRC)
 		--biblatex \
 		$(PANDOC_FLAGS)
 	
-	-@mv from-doi.bib src/${TYPE}/ || echo "Warning: from-doi.bib not found or failed to move"
+	-@mv from-doi.bib src/${TYPE}/ || (touch src/${TYPE}/from-doi.bib && echo "Warning: from-doi.bib not found or failed to move, created empty file")
 	
 	mkdir -p src/${TYPE}/assets
 	@if [ "$(FEW)" = "true" ]; then \

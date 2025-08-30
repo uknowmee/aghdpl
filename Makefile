@@ -16,6 +16,12 @@ endif
 
 ${PDF}: $(SRC)
 
+	-@cd src/${TYPE} && latexmk -C || echo "Warning: latexmk clean failed"
+	-@rm src/${TYPE}/output.* || echo "Warning: failed to remove output.*"
+	-@rm src/${TYPE}/*.bib || echo "Warning: failed to remove .bib files"
+	-@rm src/${TYPE}/*.pdf || echo "Warning: failed to remove .pdf files"
+	-@rm -rf src/${TYPE}/assets/* || echo "Warning: failed to remove assets"
+
 	pandoc -N --standalone \
 		--lua-filter src/diagram-generator.lua \
 		--lua-filter src/doi2cite.lua \
@@ -46,6 +52,6 @@ ${PDF}: $(SRC)
 	-@rm src/${TYPE}/output.* || echo "Warning: failed to remove output.*"
 	-@rm src/${TYPE}/*.bib || echo "Warning: failed to remove .bib files"
 	-@rm src/${TYPE}/*.pdf || echo "Warning: failed to remove .pdf files"
-	-@rm src/${TYPE}/assets/* || echo "Warning: failed to remove assets"
+	-@rm -rf src/${TYPE}/assets/* || echo "Warning: failed to remove assets"
 
 pdf: ${PDF}

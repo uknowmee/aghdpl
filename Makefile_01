@@ -1,0 +1,45 @@
+ifeq ($(FEW), true)
+	SRC1 := $(wildcard $(INPUT_DIR)/*.md)
+	SRC2 := $(wildcard $(INPUT_DIR)/../*.md)
+	SRC := $(SRC1) $(SRC2)
+else
+	SRC := $(wildcard $(INPUT_DIR)/*.md)
+endif
+
+PDF := ${OUTPUT_DIR}/${TYPE}-${OUTPUT_FILE_SUFFIX}.pdf
+
+ifeq ($(findstring aghdpl,$(TYPE)),aghdpl)
+	PANDOC_FLAGS := --top-level-division=chapter --template=src/${TYPE}/template.latex
+else
+	PANDOC_FLAGS :=
+endif
+
+${PDF}: $(SRC) $(INPUT_DIR)/*.bib $(INPUT_DIR)/assets/* src/${TYPE}/template.latex
+	@mkdir -p $(OUTPUT_DIR) src/${TYPE}/assets
+	@if [ "$(FEW)" = "true" ]; then \
+		cp -u ${INPUT_DIR}/../bibliografia.bib src/${TYPE}/ 2>/dev/null || touch src/${TYPE}/bibliografia.bib; \
+		rsync -a --delete ${INPUT_DIR}/assets/ src/${TYPE}/assets/ 2>/dev/null || echo "Warning: failed to copy assets"; \
+		rsync -a --delete ${INPUT_DIR}/../assets/ src/${TYPE}/assets/ 2>/dev/null || echo "Warning: failed to copy assets"; \
+	else \
+		cp -u ${INPUT_DIR}/*.bib src/${TYPE}/ 2>/dev/null || touch src/${TYPE}/bibliografia.bib; \
+		rsync -a --delete ${INPUT_DIR}/assets/ src/${TYPE}/assets/ 2>/dev/null || echo "Warning: failed to copy assets"; \
+	fi
+	@pandoc -N --standalone \
+		--lua-filter src/diagram-generator.lua \
+		--lua-filter src/doi2cite.lua \
+		-F pandoc-crossref \
+		$(SRC) \
+		-o src/${TYPE}/output.tex \
+		--biblatex \
+		$(PANDOC_FLAGS)
+	@mv from-doi.bib src/${TYPE}/ 2>/dev/null || touch src/${TYPE}/from-doi.bib
+	@cd src/${TYPE} && latexmk -pdf -silent output.tex
+	@mv src/${TYPE}/output.pdf ${PDF}
+	@cp ${PDF} ${OUTPUT_DIR}/${TYPE}.pdf
+
+.PHONY: clean
+clean:
+	@cd src/${TYPE} && latexmk -C
+	@rm -rf src/${TYPE}/output.* src/${TYPE}/*.bib src/${TYPE}/*.pdf src/${TYPE}/assets/*
+
+pdf: ${PDF}

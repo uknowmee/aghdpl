@@ -55,3 +55,4 @@ ${PDF}: $(SRC)
 	-@rm -rf src/${TYPE}/assets/* || echo "Warning: failed to remove assets"
 
 pdf: ${PDF}
+	
